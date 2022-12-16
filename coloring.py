@@ -78,10 +78,10 @@ class GraphColoring(RsaGraphColoring):
 
             bob = Bob(edges=self.__fileGraph.edges,
                       n=self.n, keys_d=self.keys_d, z=self.z)
-            random_edge = bob._random_egde()
+            random_edge = bob.random_egde()
 
             c_key1, c_key2 = self.__get_two_key_c(random_edge)
-            if bob._check(c_key1=c_key1, c_key2=c_key2) is False:
+            if bob.check(c_key1=c_key1, c_key2=c_key2) is False:
                 return False
         return True
 
@@ -119,7 +119,7 @@ class Bob:
         self.z = z
         self.curr_edge = None
 
-    def _random_egde(self) -> list:
+    def random_egde(self) -> list:
         index_random_edge = random.randint(
             0, len(self.edges)-1)
         self.curr_edge = self.edges[index_random_edge]
@@ -131,7 +131,7 @@ class Bob:
     def __get_n_two_vertex(self, edge: list) -> List[list]:
         return [self.n[int(edge[0])-1], self.n[int(edge[1])-1]]
 
-    def _check(self, c_key1: int, c_key2: int) -> bool:
+    def check(self, c_key1: int, c_key2: int) -> bool:
         z1, z2 = self.__get_z_two_vertex(self.curr_edge)
         n1, n2 = self.__get_n_two_vertex(self.curr_edge)
         a = exp_mod(z1, c_key1, n1)
