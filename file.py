@@ -39,14 +39,3 @@ class ReaderColor(FileReader):
                 key, value = line.strip().split(' ')
                 colors[key] = value
         self._colors = colors
-
-
-# file = ReaderGraph('./resources/data.txt')
-# file.read_file()
-# print(file.data)
-# print(file.v)
-# print(file.e)
-# print(file.edges)
-# file2 = ReaderColor('./resources/vertexColor.txt')
-# file2.read_file()
-# print(file2.colors)
