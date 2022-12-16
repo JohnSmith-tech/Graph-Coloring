@@ -3,31 +3,8 @@ import random
 from sympy import isprime, randprime
 from typing import List
 from file import *
-from abc import abstractmethod, ABC
 from functools import reduce
-
-
-class RsaSystem(ABC):
-
-    @abstractmethod
-    def generate_c_number(self, f: int) -> int:
-        raise NotImplementedError
-
-    @abstractmethod
-    def eval_d_number(self, c: int, f: int) -> int:
-        raise NotImplementedError
-
-    @abstractmethod
-    def generate_p_q(self, v: int) -> List[list]:
-        raise NotImplementedError
-
-    @abstractmethod
-    def eval_n(self, p: list, q: list) -> list:
-        raise NotImplementedError
-
-    @abstractmethod
-    def eval_f(self, p: list, q: list):
-        raise NotImplementedError
+from ciphers.rsa import RsaSystem
 
 
 class RsaGraphColoring(RsaSystem):
@@ -62,7 +39,7 @@ class RsaGraphColoring(RsaSystem):
         for i in range(len(p)):
             n.append(p[i] + q[i])
         return n
-    
+
     def eval_f(self, p: list, q: list):
         f = []
         for i in range(len(p)):
@@ -121,6 +98,3 @@ class GraphColoring(RsaGraphColoring):
             self.__fileColor._colors[key] = dict_for_perm[self.__fileColor._colors[key]]
 
 
-a = GraphColoring(fileNameGraph='./resources/data.txt',
-                  fileNameColors='./resources/vertexColor.txt')
-a.coloring()
