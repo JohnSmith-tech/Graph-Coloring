@@ -49,7 +49,7 @@ class RsaGraphColoring(RsaSystem):
 
 class GraphColoring(RsaGraphColoring):
 
-    def __init__(self, fileNameGraph, fileNameColors) -> None:
+    def __init__(self, fileNameGraph: str, fileNameColors: str) -> None:
         super().__init__()
         self.__fileGraph = ReaderGraph(fileNameGraph)
         self.__fileGraph.read_file()
@@ -57,7 +57,7 @@ class GraphColoring(RsaGraphColoring):
         self.__fileColor.read_file()
         self._encode_colors = {'R': '00', 'B': '01', 'Y': '10'}
 
-    def coloring(self, alpha) -> bool:
+    def coloring(self, alpha: int) -> bool:
         for _ in range(alpha * self.__fileGraph.e):
             self.p_array, self.q_array = self.generate_p_q(self.__fileGraph.v)
             self.n = self.eval_n(self.p_array, self.q_array)
@@ -85,7 +85,7 @@ class GraphColoring(RsaGraphColoring):
                 return False
         return True
 
-    def __get_two_key_c(self, edge) -> List[list]:
+    def __get_two_key_c(self, edge: list) -> List[list]:
         return [self.__keys_c[int(edge[0])-1], self.__keys_c[int(edge[1])-1]]
 
     def __get_unique_colors(self) -> list:
@@ -112,7 +112,7 @@ class GraphColoring(RsaGraphColoring):
 
 
 class Bob:
-    def __init__(self, edges, n, keys_d, z) -> None:
+    def __init__(self, edges: List[list], n: list, keys_d: list, z: list) -> None:
         self.edges = edges
         self.n = n
         self.d = keys_d
@@ -125,10 +125,10 @@ class Bob:
         self.curr_edge = self.edges[index_random_edge]
         return self.edges[index_random_edge]
 
-    def __get_z_two_vertex(self, edge) -> List[list]:
+    def __get_z_two_vertex(self, edge: list) -> List[list]:
         return [self.z[int(edge[0])-1], self.z[int(edge[1])-1]]
 
-    def __get_n_two_vertex(self, edge) -> List[list]:
+    def __get_n_two_vertex(self, edge: list) -> List[list]:
         return [self.n[int(edge[0])-1], self.n[int(edge[1])-1]]
 
     def _check(self, c_key1: int, c_key2: int) -> bool:
