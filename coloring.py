@@ -40,7 +40,7 @@ class RsaGraphColoring(RsaSystem):
             n.append(p[i] * q[i])
         return n
 
-    def eval_f(self, p: list, q: list):
+    def eval_f(self, p: list, q: list) -> list:
         f = []
         for i in range(len(p)):
             f.append((p[i]-1)*(q[i]-1))
@@ -64,7 +64,7 @@ class GraphColoring(RsaGraphColoring):
             self.f = self.eval_f(self.p_array, self.q_array)
 
             self.__keys_c = [self.generate_c_number(self.f[i])
-                           for i in range(self.__fileGraph.v)]
+                             for i in range(self.__fileGraph.v)]
             self.keys_d = [self.eval_d_number(self.__keys_c[i], self.f[i])
                            for i in range(self.__fileGraph.v)]
 
