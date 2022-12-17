@@ -17,9 +17,9 @@ class RsaSystem(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def eval_n(self, p: list, q: list) -> list:
+    def eval_n(self, p: int, q: int) -> int:
         raise NotImplementedError
 
     @abstractmethod
-    def eval_f(self, p: list, q: list) -> list:
+    def eval_f(self, p: int, q: int) -> int:
         raise NotImplementedError
