@@ -34,17 +34,11 @@ class RsaGraphColoring(RsaSystem):
             q_array.append(q)
         return [p_array, q_array]
 
-    def eval_n(self, p: list, q: list) -> list:
-        n = []
-        for i in range(len(p)):
-            n.append(p[i] * q[i])
-        return n
+    def eval_n(self, p: int, q: int) -> int:
+        return p * q
 
-    def eval_f(self, p: list, q: list) -> list:
-        f = []
-        for i in range(len(p)):
-            f.append((p[i]-1)*(q[i]-1))
-        return f
+    def eval_f(self, p: int, q: int) -> int:
+        return (p-1)*(q-1)
 
 
 class GraphColoring(RsaGraphColoring):
@@ -60,9 +54,10 @@ class GraphColoring(RsaGraphColoring):
     def coloring(self, alpha: int) -> bool:
         for _ in range(alpha * self.__fileGraph.e):
             self.p_array, self.q_array = self.generate_p_q(self.__fileGraph.v)
-            self.n = self.eval_n(self.p_array, self.q_array)
-            self.f = self.eval_f(self.p_array, self.q_array)
-
+            self.n = [self.eval_n(self.p_array[i], self.q_array[i])
+                      for i in range(self.__fileGraph.v)]
+            self.f = [self.eval_f(self.p_array[i], self.q_array[i])
+                      for i in range(self.__fileGraph.v)]
             self.__keys_c = [self.generate_c_number(self.f[i])
                              for i in range(self.__fileGraph.v)]
             self.keys_d = [self.eval_d_number(self.__keys_c[i], self.f[i])
