@@ -17,21 +17,24 @@ class RsaGraphColoring(RsaSystem):
     def eval_d_number(self, c: int, f: int) -> int:
         return exp_mod(euclid_algorithm(c, f)[1], 1, f)
 
-    def generate_p_q(self, v: int) -> List[list]:
+    def generate_p_q(self) -> list:
+        p = 0
+        q = 0
+        while p == q:
+            while not isprime(p):
+                p = random.getrandbits(1024)
+            while not isprime(q):
+                q = random.getrandbits(1024)
+
+        return [p, q]
+
+    def geneterate_arrays_p_q(self, v: int) -> List[list]:
         p_array = []
         q_array = []
-
         for _ in range(v):
-            p = 0
-            q = 0
-            while p == q:
-                while not isprime(p):
-                    p = random.getrandbits(1024)
-                while not isprime(q):
-                    q = random.getrandbits(1024)
-
-            p_array.append(p)
-            q_array.append(q)
+            temp_p, temp_q = self.generate_p_q()
+            p_array.append(temp_p)
+            q_array.append(temp_q)
         return [p_array, q_array]
 
     def eval_n(self, p: int, q: int) -> int:
@@ -53,7 +56,8 @@ class GraphColoring(RsaGraphColoring):
 
     def coloring(self, alpha: int) -> bool:
         for _ in range(alpha * self.__fileGraph.e):
-            self.p_array, self.q_array = self.generate_p_q(self.__fileGraph.v)
+            self.p_array, self.q_array = self.geneterate_arrays_p_q(
+                self.__fileGraph.v)
             self.n = [self.eval_n(self.p_array[i], self.q_array[i])
                       for i in range(self.__fileGraph.v)]
             self.f = [self.eval_f(self.p_array[i], self.q_array[i])
