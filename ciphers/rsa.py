@@ -13,7 +13,7 @@ class RsaSystem(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def generate_p_q(self, v: int) -> List[list]:
+    def generate_p_q(self) -> list:
         raise NotImplementedError
 
     @abstractmethod
